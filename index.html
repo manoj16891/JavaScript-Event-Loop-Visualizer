@@ -1,0 +1,88 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Event Loop Visualizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="background-orb orb-a"></div>
+  <div class="background-orb orb-b"></div>
+
+  <main class="app-shell">
+    <header class="hero">
+      <p class="eyebrow">Runtime Model</p>
+      <h1>JavaScript Event Loop Visualizer</h1>
+      <p class="subtitle">Simulate how synchronous code, Web APIs, microtasks, and macrotasks interact over time.</p>
+
+      <div class="controls" role="group" aria-label="Simulation controls">
+        <button id="prevBtn" class="action transport" title="Previous Step">|&#9664;</button>
+        <button id="playBtn" class="action primary transport" title="Play/Pause">&#9654;</button>
+        <button id="nextBtn" class="action transport" title="Next Step">Next &#8250;</button>
+        <button id="resetBtn" class="action transport" title="Reset">&#8635;</button>
+
+        <label class="speed-control" for="speedRange">Speed
+          <input id="speedRange" type="range" min="220" max="1400" step="60" value="760" />
+          <span id="speedValue">760ms</span>
+        </label>
+      </div>
+
+      <div id="presetRow" class="preset-row" role="group" aria-label="Scenario presets"></div>
+    </header>
+
+    <section class="workspace">
+      <article class="panel code-panel">
+        <div class="code-panel-head">
+          <h2>Code Editor</h2>
+          <div class="code-actions">
+            <button id="applyCodeBtn" class="action">Apply Code</button>
+            <button id="loadPresetBtn" class="action">Load Preset Code</button>
+          </div>
+        </div>
+        <p class="editor-hint">Supported: <code>console.log</code>, <code>setTimeout</code>, <code>Promise.resolve().then</code>, <code>queueMicrotask</code></p>
+        <textarea id="scenarioEditor" spellcheck="false" aria-label="Scenario code editor"></textarea>
+        <p id="editorStatus" class="editor-status">Ready</p>
+      </article>
+
+      <section class="panel-grid">
+        <article class="panel lane-panel">
+          <h2>Call Stack</h2>
+          <ul id="callStackList" class="lane"></ul>
+        </article>
+
+        <article class="panel lane-panel">
+          <h2>Web APIs</h2>
+          <ul id="webApiList" class="lane"></ul>
+        </article>
+
+        <article class="panel lane-panel">
+          <h2>Microtask Queue</h2>
+          <ul id="microtaskList" class="lane"></ul>
+        </article>
+
+        <article class="panel lane-panel">
+          <h2>Macrotask Queue</h2>
+          <ul id="macrotaskList" class="lane"></ul>
+        </article>
+
+        <article class="panel log-panel">
+          <h2>Console Output</h2>
+          <ol id="logList" class="log-list"></ol>
+        </article>
+      </section>
+    </section>
+
+    <footer class="status-bar">
+      <span id="tickLabel">Tick: 0</span>
+      <span id="stateLabel">State: Paused</span>
+      <span id="presetLabel">Preset: -</span>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
